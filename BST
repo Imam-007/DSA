@@ -311,5 +311,45 @@ public class MirrorBST {
 		preOrder(root);
 
 	}
-
 }
+
+*******************************************************************************************************************
+
+// Create a Balanced BST using Sorted Array(Balanced BST means Tree have Minimum height using technique Binary search).
+
+package imam.BST;
+
+import imam.BST.BSTCreation.Node;
+
+public class BalancedBST {
+	
+	public static void preOrder(Node root) {
+		if(root==null) {
+			return;
+		}
+		System.out.print(root.data+" ");
+		preOrder(root.left);
+		preOrder(root.right);
+	}
+	
+	public static Node balancedBST(int[] arr,int low,int high){
+		if(low>high) {
+			return null;
+		}
+		int mid=(low+high)/2;
+		Node root=new Node(arr[mid]);
+		root.left=balancedBST(arr,low,mid-1);
+		root.right=balancedBST(arr,mid+1,high);
+		return root;		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] arr= {1,2,4,5,7,8,9,10};
+		Node root=balancedBST(arr,0,arr.length-1);
+		preOrder(root);
+
+	}
+}
+
