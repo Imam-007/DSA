@@ -1,0 +1,313 @@
+//BST creation
+
+package imam.BST;
+
+public class BSTCreation {
+	static class Node{
+		int data;
+		Node left,right;
+		public Node(int val) {
+			data=val;
+		}
+	}
+	
+	public static Node build(Node root,int val) {
+		if(root==null) {
+			return new Node(val);
+		}
+		
+		if(root.data>val) {
+			root.left=build(root.left,val);
+		}else {
+			root.right=build(root.right,val);
+		}
+		return root;
+	}
+	public static void inOrder(Node root) {
+		if(root==null) {
+			return;
+		}
+		inOrder(root.left);
+		System.out.print(root.data+" ");
+		inOrder(root.right);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] node= {3,5,1,8,2,6,4};
+		Node root=null;
+		for(int i=0;i<node.length;i++) {
+			root=build(root,node[i]);
+		}
+		
+		inOrder(root);
+
+	}
+
+}
+
+
+//Delete a Node in BST
+
+
+package imam.BST;
+
+import imam.BST.BSTCreation.Node;
+
+public class DeleteNodeInBST {
+	
+	public static Node build(Node root,int val) {
+		if(root==null) {
+			return new Node(val);
+		}
+		
+		if(root.data>val) {
+			root.left=build(root.left,val);
+		}else {
+			root.right=build(root.right,val);
+		}
+		return root;
+	}
+	public static void inOrder(Node root) {
+		if(root==null) {
+			return;
+		}
+		inOrder(root.left);
+		System.out.print(root.data+" ");
+		inOrder(root.right);
+	}
+	
+	public static Node deleteNode(Node root,int val) {
+		if(root==null) {
+			return null;
+		}
+		if(root.data>val) {
+			root.left=deleteNode(root.left,val);
+		}else if(root.data<val) {
+			root.right=deleteNode(root.right,val);
+		}else {
+			if(root.left==null && root.right==null) {
+				return null;
+			}else if(root.left==null) {
+				return root.right;
+			}else if(root.right==null) {
+				return root.left;
+			}else {
+				Node IS=findInorderSuccessor(root.right);
+				root.data=IS.data;
+				root.right=deleteNode(root.right,IS.data);
+			}
+		}
+		return root;
+	}
+	public static Node findInorderSuccessor(Node root) {
+		while(root.left!=null) {
+			root=root.left;
+		}
+		return root;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] node= {3,5,1,8,2,6,4,9,10,14,-34};
+		Node root=null;
+		for(int i=0;i<node.length;i++) {
+			root=build(root,node[i]);
+		}
+		
+		inOrder(root);
+		System.out.println();
+		
+		root=deleteNode(root,15);
+		inOrder(root);
+
+	}
+}
+
+
+//Print Tree element i given range k1 and k2.
+
+
+package imam.BST;
+
+import imam.BST.BSTCreation.Node;
+
+public class PrintInRange {
+	
+	public static Node build(Node root,int val) {
+		if(root==null) {
+			return new Node(val);
+		}
+		
+		if(root.data>val) {
+			root.left=build(root.left,val);
+		}else {
+			root.right=build(root.right,val);
+		}
+		return root;
+	}
+	public static void inOrder(Node root) {
+		if(root==null) {
+			return;
+		}
+		inOrder(root.left);
+		System.out.print(root.data+" ");
+		inOrder(root.right);
+	}
+	
+	public static void print(Node root, int k1,int k2) {
+		if(root==null) {
+			return ;
+		}
+		
+		if(root.data>=k1 && root.data<=k2) {
+			print(root.left,k1,k2);
+			System.out.print(root.data+" ");
+			print(root.right,k1,k2);
+		}else if(root.data<k1) {
+			print(root.right,k1,k2);
+		}else if(root.data>k2) {
+			print(root.left,k1,k2);
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] node= {3,5,1,8,2,6,4,9,10,14,-34};
+		Node root=null;
+		for(int i=0;i<node.length;i++) {
+			root=build(root,node[i]);
+		}
+		
+		inOrder(root);
+		System.out.println();
+		print(root,4,15);
+		
+
+	}
+
+}
+
+
+
+// Print every path of Given Tree (print Root to Leaf every path).
+
+package imam.BST;
+
+import imam.BST.BSTCreation.Node;
+import java.util.ArrayList;
+
+public class PrintRoot2Leaf {
+	public static Node build(Node root,int val) {
+		if(root==null) {
+			return new Node(val);
+		}
+		
+		if(root.data>val) {
+			root.left=build(root.left,val);
+		}else {
+			root.right=build(root.right,val);
+		}
+		return root;
+	}
+	public static void inOrder(Node root) {
+		if(root==null) {
+			return;
+		}
+		inOrder(root.left);
+		System.out.print(root.data+" ");
+		inOrder(root.right);
+	}
+	public static void print(ArrayList<Integer> path) {
+		for(int i=0;i<path.size();i++) {
+			System.out.print(path.get(i)+"->");
+		}
+		System.out.print("Null");
+		System.out.println();
+	}
+	public static void printRoot2Leaf(Node root,ArrayList<Integer>path) {
+		if(root==null) {
+			return;
+		}
+		path.add(root.data);
+		if(root.left==null && root.right==null) {
+			print(path);
+		}
+		
+		printRoot2Leaf(root.left,path);
+		printRoot2Leaf(root.right,path);
+		path.remove(path.size()-1);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] node= {3,5,1,8,2,6,4,9,10,14,-34};
+		Node root=null;
+		for(int i=0;i<node.length;i++) {
+			root=build(root,node[i]);
+		}
+		
+		inOrder(root);
+		System.out.println();
+		printRoot2Leaf(root,new ArrayList<>());
+
+	}
+
+}
+
+
+// create a Mirror Image of a given Tree.
+
+package imam.BST;
+
+import imam.BST.BSTCreation.Node;
+
+public class MirrorBST {
+	public static Node build(Node root,int val) {
+		if(root==null) {
+			return new Node(val);
+		}
+		
+		if(root.data>val) {
+			root.left=build(root.left,val);
+		}else {
+			root.right=build(root.right,val);
+		}
+		return root;
+	}
+	
+	public static Node mirror(Node root) {
+		if(root==null) {
+			return null;
+		}
+		Node leftMirror=mirror(root.left);
+		Node rightMirror=mirror(root.right);
+		root.left=rightMirror;
+		root.right=leftMirror;
+		return root;
+	}
+	
+	public static void preOrder(Node root) {
+		if(root==null) {
+			return;
+		}
+		System.out.print(root.data+" ");
+		preOrder(root.left);
+		preOrder(root.right);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] node= {3,5,1,8,2,6,4,9};
+		Node root=null;
+		for(int i=0;i<node.length;i++) {
+			root=build(root,node[i]);
+		}
+		preOrder(root);
+		System.out.println();
+		root=mirror(root);
+		preOrder(root);
+
+	}
+
+}
