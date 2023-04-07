@@ -353,3 +353,55 @@ public class BalancedBST {
 	}
 }
 
+********************************************************************************************************************************
+
+// check Given Tree is valid or Not.(valid means full fill all BST condition).
+
+package imam.BST;
+
+import imam.BST.BSTCreation.Node;
+
+public class IsValidBST {
+	
+	public static Node build(Node root,int val) {
+		if(root==null) {
+			return new Node(val);
+		}
+		
+		if(root.data>val) {
+			root.left=build(root.left,val);
+		}else {
+			root.right=build(root.right,val);
+		}
+		return root;
+	}
+	
+	public static boolean isValid(Node root,Node min,Node max) {
+		if(root==null) {
+			return true;
+		}else if(min!=null && root.data<=min.data) {
+			return false;
+		}else if(max!=null && root.data>=max.data) {
+			return false;
+		}
+		return isValid(root.left,min,root) && isValid(root.right,root,max);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] node= {3,6,1,8,2,9,10,13,12};
+		Node root=null;
+		for(int i=0;i<node.length;i++) {
+			root=build(root,node[i]);
+		}
+		
+		if(isValid(root,null,null)) {
+			System.out.println("Valid");
+		}else {
+			System.out.println("Not valid");
+		}
+
+	}
+
+}
