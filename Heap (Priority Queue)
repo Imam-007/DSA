@@ -1,0 +1,43 @@
+// Write down code how Compare Class Object.
+
+package imam.Heap;
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class CompareClassObject {
+	
+	static class Student implements Comparable<Student>{
+		String name;
+		int rank;
+		public Student(String name,int rank) {
+			this.name=name;
+			this.rank=rank;
+		}
+		
+		@Override
+		public int compareTo(Student s2) {
+			return this.rank-s2.rank;
+		}
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		PriorityQueue<Student> pq=new PriorityQueue<>();  //For reverse this order then apply PriorityQueue<Student> pq=new PriorityQueue<>(Comparator.revreseOdere());
+		pq.add(new Student("Imam",7));
+		pq.add(new Student("Asif",9));
+		pq.add(new Student("Najeeb",10));
+		pq.add(new Student("shahim",6));
+		pq.add(new Student("Ishan",11));
+		
+		while(!pq.isEmpty()) {
+			System.out.println(pq.peek().name+"->"+pq.peek().rank);
+			pq.remove();
+		}
+
+	}
+
+}
+
+******************************************************************************************************************************
