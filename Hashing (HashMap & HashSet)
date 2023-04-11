@@ -1,0 +1,72 @@
+//Find Union and Intersection of given two Array.
+
+package imam.Hashing;
+import java.util.HashSet;
+
+public class UnionIntersectionOf2Array {
+	public static void find(int[] arr,int[] brr) {
+		HashSet<Integer> set=new HashSet<>();
+		for(int num:arr) {
+			set.add(num);
+		}
+		for(int num:brr) {
+			set.add(num);
+		}
+		System.out.println("Union = "+set);
+		set.clear();
+		for(int num:brr) {
+			set.add(num);
+		}
+		System.out.print("Intersection= ");
+		for(int num:arr) {
+			if(set.contains(num)) {
+				System.out.print(num+" ");
+				set.remove(num);
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] arr= {60,2,8,1,9,12,4};
+		int[] brr= {5,2,4,9};
+		find(arr,brr);
+
+	}
+
+}
+
+**********************************************************************************************************************************
+
+//Find Largest Subarray with zero sum.
+
+package imam.Hashing;
+import java.util.HashMap;
+
+public class LargestSubArrayZeroSum {
+	public static void find(int[] arr) {
+		HashMap<Integer,Integer> map=new HashMap<>();
+		int sum=0,len=0;
+		for(int i=0;i<arr.length;i++) {
+			sum+=arr[i];
+			if(map.containsKey(sum)) {
+				len=Math.max(len, i-map.get(sum));
+			}else {
+				map.put(sum,i);
+			}
+		}
+		System.out.println("Largest Subarray with zero sum= "+len);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] arr= {15,-2,2,-8,1,7,10};
+		find(arr);
+
+	}
+
+}
+
+**********************************************************************************************************************************
