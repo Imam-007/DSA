@@ -1,0 +1,37 @@
+// Delete Middle Element from Stack.
+
+package imam.stack;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class DeleteMiddleElementInStack {
+	public static void deleteMiddleElement(Stack<Integer> stk,int count,int size) {
+		if(count==size/2) {
+			System.out.println("Middle Element in stack "+stk.pop());
+			return;
+		}
+		int num=stk.pop();
+		deleteMiddleElement(stk,count+1,size);
+		stk.push(num);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Stack<Integer> stk=new Stack<>();
+		Scanner sc=new Scanner(System.in);
+		System.out.println("How much element do want to insert in stack");
+		int size=sc.nextInt();
+		System.out.println("enter "+size+" element in stack");
+		for(int i=0;i<size;i++) {
+			stk.push(sc.nextInt());
+		}
+		System.out.println("Stack before operation"+ stk);
+		deleteMiddleElement(stk,0,stk.size());
+		System.out.println("Stack after operation"+ stk);
+
+	}
+
+}
+
+***************************************************************************************************************************
