@@ -75,3 +75,52 @@ public class InsertElementAtBottomInStack {
 }
 
 *****************************************************************************************************************************
+
+//Reverse a stack using Recursion.
+
+package imam.stack;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class ReverseStackUsingRecursion {
+	public static void reverseStack(Stack<Integer> stk) {
+		if(stk.isEmpty()) {
+			return;
+		}
+		int num=stk.pop();
+		reverseStack(stk);
+		insertInBottom(stk,num);
+	}
+	public static void insertInBottom(Stack<Integer> stk,int num) {
+		if(stk.isEmpty()) {
+			stk.push(num);
+			return;
+		}
+		int temp=stk.pop();
+		insertInBottom(stk,num);
+		stk.push(temp);		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Stack<Integer> stk=new Stack<>();
+		Scanner sc=new Scanner(System.in);
+		System.out.println("How much element do want to insert in stack");
+		int size=sc.nextInt();
+		System.out.println("enter "+size+" element in stack");
+		for(int i=0;i<size;i++) {
+			stk.push(sc.nextInt());
+		}
+		System.out.println("Stack before operation"+ stk);
+		
+		reverseStack(stk);
+		
+		System.out.println("Stack after operation"+ stk);
+
+	}
+
+}
+
+
+*****************************************************************************************************************************
