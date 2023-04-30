@@ -58,3 +58,43 @@ public class FirstNegativeInKWindow {
 	}
 
 }
+
+*********************************************************************************************************************************
+
+//Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+class Solution {
+
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list=new ArrayList<>();
+        if(p==null || s== null || p.length()>s.length()){
+            return list;
+        }
+
+        int[] fre1=new int[26];
+        int[] fre2=new int[26];
+
+        for(int i=0;i<p.length();i++){
+            fre1[p.charAt(i)-'a']++;
+            fre2[s.charAt(i)-'a']++;
+        }
+        if(Arrays.equals(fre1,fre2)){
+            list.add(0);
+        }
+        int start=0,end=p.length();
+
+        while(end<s.length()){
+            fre2[s.charAt(start)-'a']--;
+            fre2[s.charAt(end)-'a']++;
+            if(Arrays.equals(fre1,fre2)){
+                list.add(start+1);
+            }
+
+            start++;
+            end++;
+        } 
+        return list;       
+    }
+}
