@@ -124,3 +124,53 @@ public class ReverseStackUsingRecursion {
 
 
 *****************************************************************************************************************************
+
+// Redundant Brackets/Extra Bracket
+
+package imam.stack;
+
+import java.util.Stack;
+
+public class IsRedundantBrackets {
+	public static boolean isRedundant(String str) {
+		Stack<Character> stk=new Stack<>();
+		
+		for(char ch:str.toCharArray()) {
+			if(ch=='(' || ch=='+' || ch=='-' || ch=='*' || ch=='/') {
+				stk.push(ch);
+			}else if(ch==')') {
+				boolean flag=true;
+				while(stk.peek()!='(') {
+					stk.pop();
+					flag=false;
+				}
+				if(flag) {
+					return true;
+				}
+				stk.pop();
+			}
+		}
+		
+		return false;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String str="(a+c*b)+(c))";
+		System.out.println(isRedundant(str));
+
+	}
+}
+
+Sample Input 1 :
+2
+(a+b)
+(a+c*b)+(c))
+Sample Output 1 :
+No
+Yes
+
+********************************************************************************************************************************
+
+
