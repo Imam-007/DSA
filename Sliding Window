@@ -127,3 +127,47 @@ class Solution {
         
     }
 }
+
+
+***************************************************************************************************************************
+
+// Longest Substring With K Unique Characters.
+
+package imam.SlidingWindow;
+
+import java.util.HashMap;
+
+public class LongestSubstringWithKUniqueCharacters {
+	public static int longestSubstringWithKUniqueCharacters(String str,int k) {
+		HashMap<Character,Integer> map=new HashMap<>();
+		int ans=Integer.MIN_VALUE;
+		int i=0,j=0;
+		while(j<str.length()) {
+			char ch=str.charAt(j);
+			map.put(ch, map.getOrDefault(ch, 0)+1);
+			if(map.size()<k) {
+				
+			}else if(map.size()==k) {
+				ans=Math.max(ans, j-i+1);
+			}else if(map.size()>k) {
+				while(map.size()>k) {
+					map.put(str.charAt(i), map.get(str.charAt(i))-1);
+					if(map.get(str.charAt(i))==0) {
+						map.remove(str.charAt(i));
+					}
+					i++;
+				}
+			}
+			j++;
+		}
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String str="aabacbebebe";
+		
+		System.out.println(longestSubstringWithKUniqueCharacters(str,3));
+	}
+}
