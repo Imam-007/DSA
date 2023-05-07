@@ -1,0 +1,90 @@
+// Find a element in given sorted Array.
+
+package imam.BinarySearch;
+
+public class BinarySearch {
+	
+	public static void search(int[] arr,int target) {
+		
+		int low=0,high=arr.length-1;
+		while(low<=high) {
+			int mid=low+(high-low)/2;
+			if(arr[mid]==target) {
+				System.out.println("Element found at index "+mid);
+				return;
+			}else if(arr[mid]>target) {
+				high=mid-1;
+			}else {
+				low=mid+1;
+			}
+		}
+		System.out.println("Element not found");
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] arr= {2,4,7,10,12,23,45,89};
+		search(arr,23);
+
+	}
+
+}
+
+
+**********************************************************************************************************************************
+
+
+// First and Last occurrence of an Element in sorted array.
+
+package imam.BinarySearch;
+
+public class FirstAndLastOccurrenceOfElement {
+	
+	public static void find(int[] arr,int target) {
+		int start=0;
+		int end=arr.length-1;
+		int first=0,last=0;
+		
+		while(start<=end) {
+			int mid=start+(end-start)/2;
+			if(arr[mid]==target) {
+				first=mid;
+				end=mid-1;
+			}else if(arr[mid]>target) {
+				end=mid-1;
+			}else {
+				start=mid+1;
+			}
+		}
+		System.out.println("First occrrence in arr ="+first);
+		
+		start=0;
+		end=arr.length-1;
+		
+		while(start<=end) {
+			int mid=start+(end-start)/2;
+			if(arr[mid]==target) {
+				last=mid;
+				start=mid+1;
+			}else if(arr[mid]>target) {
+				end=mid-1;
+			}else {
+				start=mid+1;
+			}
+		}
+		System.out.println("Last occrrence in arr ="+last);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] arr= {2,4,6,10,10,10,23,47,80};
+		find(arr,10);
+
+	}
+
+}
+
+
+****************************************************************************************************************************
