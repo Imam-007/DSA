@@ -189,3 +189,135 @@ public class DFS {
 		dfs(graph,0,new boolean[v]);
 	}
 }
+
+
+// Graph Creation Using 2-D Array
+
+package imam.Graph;
+import java.util.Scanner;
+
+public class GraphCreation {
+	public static void creation() {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		
+		for(int i=0;i<adjMatrix.length;i++) {
+			for(int j=0;j<adjMatrix.length;j++) {
+				System.out.print(adjMatrix[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		creation();
+
+	}
+
+}
+
+****************************************************************************************************************
+
+//Depth First Search Traversal Using 2-D Array
+
+package imam.Graph;
+
+import java.util.Scanner;
+
+public class DFS {
+	
+	public static void dfsTraversal(int[][] adjMatrix,int currentVertex,boolean[] visited) {
+		visited[currentVertex]=true;
+		System.out.print(currentVertex+" ");
+		for(int i=0;i<adjMatrix.length;i++) {
+			if(adjMatrix[currentVertex][i]==1 && visited[i]==false) {
+				dfsTraversal(adjMatrix,i,visited);
+			}
+		}
+		
+	}
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		boolean[] visited=new boolean[adjMatrix.length];
+		
+		dfsTraversal(adjMatrix,0,visited);
+
+	}
+
+}
+
+
+*******************************************************************************************************************
+
+// Breadth First Search Traversal Using 2-D Array
+
+package imam.Graph;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class BFS {
+	public static void bfsTraversal(int[][] adjMatrix) {
+		Queue<Integer> pendingVertex=new LinkedList<>();
+		boolean[] visited=new boolean[adjMatrix.length];
+		pendingVertex.add(0);
+		visited[0]=true;
+		while(!pendingVertex.isEmpty()) {
+			int curr=pendingVertex.poll();
+			System.out.print(curr+" ");
+			for(int i=0;i<adjMatrix.length;i++) {
+				if(adjMatrix[curr][i]==1 && !visited[i]) {
+					pendingVertex.add(i);
+					visited[i]=true;
+				}
+			}
+			
+		}
+		
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		bfsTraversal(adjMatrix);
+
+	}
+
+}
