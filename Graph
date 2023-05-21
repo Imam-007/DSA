@@ -321,3 +321,99 @@ public class BFS {
 	}
 
 }
+
+*****************************************************************************************************************
+
+// Depth First Traversal in Disconnected Graph
+
+package imam.Graph;
+import java.util.Scanner;
+
+public class DFTraversalDisconnectGraph {
+	
+	public static void dfTraversal(int[][] adjMatrix,int curr,boolean[] visited) {
+		System.out.print(curr+" ");
+		visited[curr]=true;
+		for(int i=0;i<adjMatrix.length;i++) {
+			if(adjMatrix[curr][i]==1 && !visited[i]) {
+				dfTraversal(adjMatrix,i,visited);
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		
+		boolean[] visited=new boolean[v];
+		
+		for(int i=0;i<adjMatrix.length;i++) {
+			if(!visited[i]) {
+				dfTraversal(adjMatrix,i,visited);
+			}
+		}
+
+	}
+}
+
+***************************************************************************************************************
+
+// Readth First Traversal in Disconnected Graph
+
+package imam.Graph;
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class BFTraversalDisconnectGraph {
+	public static void bfTraversal(int[][] adjMatrix) {
+		Queue<Integer> pendingVertex=new LinkedList<>();
+		boolean[] visited=new boolean[adjMatrix.length];
+		for(int i=0;i<adjMatrix.length;i++) {
+			if(!visited[i]) {
+				pendingVertex.add(i);
+				visited[i]=true;
+				while(!pendingVertex.isEmpty()) {
+					int curr=pendingVertex.poll();
+					System.out.print(curr+" ");
+					for(int j=0;j<adjMatrix.length;j++) {
+						if(adjMatrix[curr][j]==1 && !visited[j]) {
+							pendingVertex.add(j);
+							visited[j]=true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		bfTraversal(adjMatrix);
+
+	}
+}
