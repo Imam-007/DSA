@@ -229,7 +229,7 @@ public class GraphCreation {
 
 ****************************************************************************************************************
 
-//Depth First Search Traversal Using 2-D Array
+//Depth First Traversal Using 2-D Array
 
 package imam.Graph;
 
@@ -274,7 +274,7 @@ public class DFS {
 
 *******************************************************************************************************************
 
-// Breadth First Search Traversal Using 2-D Array
+// Breadth First Traversal Using 2-D Array
 
 package imam.Graph;
 import java.util.Queue;
@@ -369,7 +369,7 @@ public class DFTraversalDisconnectGraph {
 
 ***************************************************************************************************************
 
-// Readth First Traversal in Disconnected Graph
+// Beadth First Traversal in Disconnected Graph
 
 package imam.Graph;
 import java.util.Scanner;
@@ -414,6 +414,124 @@ public class BFTraversalDisconnectGraph {
 			adjMatrix[v2][v1]=1;
 		}
 		bfTraversal(adjMatrix);
+
+	}
+}
+
+***********************************************************************************************************************
+
+//Find the path between two vertex in given Graph
+
+package imam.Graph;
+
+import java.util.*;
+
+public class GetPathInBFS {
+	
+	public static ArrayList<Integer> getPathDFS(int[][] adjMatrix,int src,int des){
+		ArrayList<Integer> list=new ArrayList<>();
+		HashMap<Integer,Integer> map=new HashMap<>();
+		Queue<Integer> q=new LinkedList<>();
+		boolean[] visited=new boolean[adjMatrix.length];
+		q.add(src);
+		visited[src]=true;
+		map.put(src, -1);
+		while(!q.isEmpty()) {
+			int curr=q.poll();
+			boolean flag=false;
+			for(int i=0;i<adjMatrix.length;i++) {
+				if(adjMatrix[curr][i]==1 && !visited[i]) {
+					q.add(i);
+					visited[i]=true;
+					map.put(i,curr);
+					if(i==des) {
+						flag=true;
+						break;
+						
+					}
+				}
+			}
+			if(flag) {
+				while(des!=-1) {
+					list.add(des);
+					des=map.get(des);
+				}
+			}
+		}		
+		
+		return list;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		System.out.println("Enter sounce and destination ");
+		int src=sc.nextInt();
+		int des=sc.nextInt();
+		System.out.println(getPathDFS(adjMatrix,src,des));
+
+	}
+
+}
+
+******************************************************************************************************************************
+
+// Check Grapg is Connected or Not.
+
+package imam.Graph;
+
+import java.util.Scanner;
+
+public class IsConnectedGraph {
+	public static void dfsTraversal(int[][] adjMatrix,int currentVertex,boolean[] visited) {
+		visited[currentVertex]=true;
+		for(int i=0;i<adjMatrix.length;i++) {
+			if(adjMatrix[currentVertex][i]==1 && visited[i]==false) {
+				dfsTraversal(adjMatrix,i,visited);
+			}
+		}		
+	}
+	
+	public static boolean isConnected(boolean[] visited) {
+		
+		for(int i=0;i<visited.length;i++) {
+			if(visited[i]!=true) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of vertex");
+		int v=sc.nextInt();
+		System.out.println("Enter number of edge");
+		int e=sc.nextInt();
+		int[][] adjMatrix=new int[v][v];
+		for(int i=0;i<e;i++) {
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+		}
+		boolean[] visited=new boolean[adjMatrix.length];
+		
+		dfsTraversal(adjMatrix,0,visited);
+		
+		System.out.println(isConnected(visited));
 
 	}
 }
